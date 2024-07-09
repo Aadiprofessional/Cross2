@@ -7,5 +7,6 @@ export const colors = {
     main: '#FCCC51',
     textPrimary: '#000',
     primary:'#FFE8C4',
+    second :'#306487',
   };
   
