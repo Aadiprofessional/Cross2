@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { colors } from '../styles/color';
 import CartItem from '../components/CartItem';
 
@@ -11,6 +11,16 @@ const CartScreen = ({ cartItems, totalAmount }) => {
     { id: 3, name: 'Product C', price: 14.99 },
   ];
   const sampleTotalAmount = sampleCartItems.reduce((sum, item) => sum + item.price, 0);
+
+  const handleGetQuotation = () => {
+    // Placeholder action for Get Quotation button
+    console.log('Get Quotation button pressed');
+  };
+
+  const handlePlaceOrder = () => {
+    // Placeholder action for Place Order button
+    console.log('Place Order button pressed');
+  };
 
   return (
     <View style={styles.container}>
@@ -29,6 +39,14 @@ const CartScreen = ({ cartItems, totalAmount }) => {
         {sampleCartItems.map(item => (
           <CartItem key={item.id} name={item.name} price={item.price} />
         ))}
+      </View>
+      <View style={styles.buttonsContainer}>
+        <TouchableOpacity style={[styles.button, { backgroundColor: colors.second }]} onPress={handleGetQuotation}>
+          <Text style={styles.buttonText}>Get Quotation</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={[styles.button, { backgroundColor: colors.main }]} onPress={handlePlaceOrder}>
+          <Text style={styles.buttonText}>Place Order</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -78,6 +96,24 @@ const styles = StyleSheet.create({
   cartItemsContainer: {
     flex: 1,
     padding: 10,
+  },
+  buttonsContainer: {
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'stretch',
+    padding: 0,
+  },
+  button: {
+    height: 50,
+    
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 0,
+  },
+  buttonText: {
+    fontSize: 18,
+    color: '#fff',
+    fontWeight: 'bold',
   },
 });
 
