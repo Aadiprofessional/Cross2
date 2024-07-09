@@ -1,34 +1,33 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { colors } from '../styles/color';
-import { useFonts, Outfit_600SemiBold } from '@expo-google-fonts/outfit';
+import CartItem from '../components/CartItem';
 
-const CartScreen = ({ cartItems = [], totalAmount = 0 }) => {
-  let [fontsLoaded] = useFonts({
-    Outfit_600SemiBold,
-  });
-
-  if (!fontsLoaded) {
-    return <Text>Loading...</Text>;
-  }
+const CartScreen = ({ cartItems, totalAmount }) => {
+  // Temporary data for demonstration
+  const sampleCartItems = [
+    { id: 1, name: 'Product A', price: 19.99 },
+    { id: 2, name: 'Product B', price: 24.99 },
+    { id: 3, name: 'Product C', price: 14.99 },
+  ];
+  const sampleTotalAmount = sampleCartItems.reduce((sum, item) => sum + item.price, 0);
 
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <View style={styles.headerLeft}>
-          <Text style={styles.cartText}>Cart :</Text>
-          <View style={styles.cartItemCountContainer}>
-            <Text style={styles.cartItemCount}>{cartItems.length}</Text>
-          </View>
+          <Text style={styles.cartText}>Cart</Text>
+          <Text style={styles.cartItemCount}>({sampleCartItems.length})</Text>
         </View>
         <View style={styles.headerRight}>
-          <Text style={styles.subtotalText}>Subtotal: </Text>
-          <Text style={styles.totalAmountText}>${totalAmount.toFixed(2)}</Text>
+          <Text style={styles.subtotalText}>Subtotal:</Text>
+          <Text style={styles.totalAmountText}>${sampleTotalAmount.toFixed(2)}</Text>
         </View>
       </View>
-      <View style={styles.content}>
-        {cartItems.map(item => (
-          <Text key={item.id} style={styles.itemText}>{item.name} - ${item.price}</Text>
+      <View style={styles.cartItemsContainer}>
+        {/* Render each cart item */}
+        {sampleCartItems.map(item => (
+          <CartItem key={item.id} name={item.name} price={item.price} />
         ))}
       </View>
     </View>
@@ -44,7 +43,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    backgroundColor: colors.main, // Replace with your main color
+    backgroundColor: colors.main, // Replace with your primary color
     padding: 15,
   },
   headerLeft: {
@@ -54,21 +53,12 @@ const styles = StyleSheet.create({
   cartText: {
     fontSize: 20,
     color: '#fff',
-    fontFamily: 'Outfit_600SemiBold',
-  },
-  cartItemCountContainer: {
-    marginLeft: 10,
-    backgroundColor: colors.second, // Replace with your second color
-    borderRadius: 15,
-    width: 30,
-    height: 30,
-    justifyContent: 'center',
-    alignItems: 'center',
+    fontWeight: 'bold',
   },
   cartItemCount: {
     fontSize: 18,
     color: '#fff',
-    fontFamily: 'Outfit_600SemiBold',
+    marginLeft: 10,
   },
   headerRight: {
     flexDirection: 'row',
@@ -77,24 +67,17 @@ const styles = StyleSheet.create({
   subtotalText: {
     fontSize: 20,
     color: '#fff',
-    fontFamily: 'Outfit_600SemiBold',
+    fontWeight: 'bold',
+    marginRight: 5,
   },
   totalAmountText: {
-    fontSize: 18,
+    fontSize: 20,
     color: '#fff',
-    fontFamily: 'Outfit_600SemiBold',
-    marginLeft: 5,
+    fontWeight: 'bold',
   },
-  content: {
+  cartItemsContainer: {
     flex: 1,
-    padding: 20,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  itemText: {
-    fontSize: 18,
-    fontFamily: 'Outfit_600SemiBold',
-    marginVertical: 5,
+    padding: 10,
   },
 });
 
